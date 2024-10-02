@@ -270,7 +270,7 @@ function dataObject(array $path, $limit, &$count = 0)
 
 function broadcast($channel, $data)
 {
-    if (defined(WEB_SOCKETS_ENABLED) && WEB_SOCKETS_ENABLED) {
+    if (!WEB_SOCKETS_ENABLED) {
         http_post(":8002/test", [
             channel => $channel,
             data => $data,
