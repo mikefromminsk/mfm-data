@@ -2,7 +2,7 @@
 
 include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-data/utils.php";
 
-if (!DEBUG) error("cannot use not in debug session");
+onlyInDebug();
 
 query("DROP TABLE IF EXISTS `data`;");
 query("CREATE TABLE IF NOT EXISTS `data` (
