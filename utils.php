@@ -65,7 +65,7 @@ function dataSet($path, $value)
         $path = implode("/", $path);
     $path_array = explode("/", $path);
 
-/*    if ($path_array[0] != getDomain()) error("script cannot set in $path_array[0] domain");*/
+    /*    if ($path_array[0] != getDomain()) error("script cannot set in $path_array[0] domain");*/
 
     $data_id = dataNew($path_array, true);
     if ($data_id == null) return false;
@@ -253,13 +253,10 @@ function dataObject(array $path, $limit, &$count = 0)
     return $result;
 }
 
-
 function broadcast($channel, $data)
 {
-    if (!WEB_SOCKETS_ENABLED) {
-        http_post(":8002/test", [
-            channel => $channel,
-            data => $data,
-        ]);
-    }
+    http_post(":8002/test", [
+        channel => $channel,
+        data => $data,
+    ]);
 }

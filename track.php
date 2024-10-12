@@ -89,7 +89,7 @@ function getCandleChange24($key)
 }
 
 
-function trackEvent($from, $from_id, $to, $to_id, $event, $param)
+function trackEvent($from, $from_id, $to, $to_id, $event, $param = "")
 {
     insertRow(events, [
         from => $from,
@@ -102,13 +102,15 @@ function trackEvent($from, $from_id, $to, $to_id, $event, $param)
     ]);
 }
 
-function getEvent($from = null, $from_id = null, $to = null, $to_id = null)
+function getEvent($from = null, $from_id = null, $to = null, $to_id = null, $event = null, $param = null)
 {
     $sql = "select * from events where 1=1";
     if ($from != null) $sql .= " and `from` = '$from'";
     if ($from_id != null) $sql .= " and `from_id` = '$from_id'";
     if ($to != null) $sql .= " and `to` = '$to'";
     if ($to_id != null) $sql .= " and `to_id` = '$to_id'";
+    if ($event != null) $sql .= " and `event` = '$event'";
+    if ($param != null) $sql .= " and `param` = '$param'";
     $sql .= " order by `time` desc limit 1";
     return selectRow($sql);
 }

@@ -6,4 +6,4 @@ $search_text = get_string(search_text, "");
 
 $response[result] = dataSearch($path, $search_text) ?: [];
 
-echo json_encode_readable($response);
+echo json_encode($response, JSON_PRETTY_PRINT);
