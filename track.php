@@ -11,48 +11,6 @@ function defaultChartSettings()
         '1W' => 60 * 60 * 24 * 7,
     ];
 }
-/*
-function trackVolume($domain, $key, $value)
-{
-    $path = implode("/", [analytics, $domain, $key]);
-    $timestamp = time();
-    foreach (defaultChartSettings() as $period_name => $period) {
-        $period_path = "$path/$period_name";
-        $period_val = ceil($timestamp / $period) * $period;
-        $last_period_val = dataGet([$period_path, time]);
-        if ($period_val == $last_period_val) {
-            dataInc([$period_path, value], abs($value), false);
-        } else {
-            dataSet([$period_path, value], abs($value), false);
-            dataSet([$period_path, history], [
-                time => $period_val,
-                val => dataGet([$period_path, value])
-            ]);
-        }
-        dataSet([$period_path, time], $period_val, false);
-    }
-}
-
-function getChart($domain, $key, $period_name)
-{
-    $period = defaultChartSettings()[$period_name];
-    if ($period == null) error("unavailable period");
-
-    $path = [analytics, $domain, $key, $period_name, history];
-
-    $candles = [];
-    $time = dataHistory(array_merge($path, [time]));
-    $close = dataHistory(array_merge($path, [close]));
-    for ($j = 0; $j < sizeof($time); $j++) {
-        $candles[] = [
-            time => (float)$time[$j],
-            value => (float)$close[$j],
-        ];
-    }
-    $candles = array_reverse($candles);
-    return $candles;
-}*/
-
 
 function trackLinear($key, $value)
 {
@@ -128,4 +86,29 @@ function getCandleChange24($key)
         . "order by `period_time` desc limit 1");
     if ($last_candle == null) return 0;
     return $last_candle[close] - $last_candle[open];
+}
+
+
+function trackEvent($from, $from_id, $to, $to_id, $event, $param)
+{
+    insertRow(events, [
+        from => $from,
+        from_id => $from_id,
+        to => $to,
+        to_id => $to_id,
+        event => $event,
+        param => $param, // md5($param)
+        time => time()
+    ]);
+}
+
+function getEvent($from = null, $from_id = null, $to = null, $to_id = null)
+{
+    $sql = "select * from events where 1=1";
+    if ($from != null) $sql .= " and `from` = '$from'";
+    if ($from_id != null) $sql .= " and `from_id` = '$from_id'";
+    if ($to != null) $sql .= " and `to` = '$to'";
+    if ($to_id != null) $sql .= " and `to_id` = '$to_id'";
+    $sql .= " order by `time` desc limit 1";
+    return selectRow($sql);
 }

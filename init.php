@@ -36,6 +36,17 @@ query("CREATE TABLE IF NOT EXISTS `candles` (
   `close` float NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;");
 
+query("DROP TABLE IF EXISTS `events`;");
+query("CREATE TABLE IF NOT EXISTS `events` (
+  `from` varchar(64) COLLATE utf8_bin NOT NULL,
+  `from_id` varchar(64) COLLATE utf8_bin NOT NULL,
+  `to` varchar(64) COLLATE utf8_bin NOT NULL,
+  `to_id` varchar(64) COLLATE utf8_bin NOT NULL,
+  `event` varchar(64) COLLATE utf8_bin NOT NULL,
+  `param` varchar(64) COLLATE utf8_bin NOT NULL,
+  `time` int(11) NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;");
+
 $response[success] = true;
 
 echo json_encode($response);

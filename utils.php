@@ -168,20 +168,6 @@ function dataHistory(array $path_array, $page = 1, $size = PAGE_SIZE_DEFAULT)
     return selectList("select data_value from history where data_path = '$path' order by id desc limit $offset, $size");
 }
 
-function scriptPath()
-{
-    $path = $_SERVER["SCRIPT_NAME"];
-    $path = str_replace("\\", "/", $path);
-    if ($path[0] == "/")
-        $path = substr($path, 1);
-    return $path;
-}
-
-function getDomain()
-{
-    return explode("/", scriptPath())[0];
-}
-
 function dataInc(array $path, $inc_val = 1)
 {
     $value = dataGet($path);
