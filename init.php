@@ -36,7 +36,7 @@ query("CREATE TABLE IF NOT EXISTS `candles` (
   `close` float NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_bin;");
 
-query("DROP TABLE IF EXISTS `events`;");
+//query("DROP TABLE IF EXISTS `events`;");
 query("CREATE TABLE IF NOT EXISTS `events` (
   `from` varchar(64) COLLATE utf8_bin NOT NULL,
   `from_id` varchar(64) COLLATE utf8_bin NOT NULL,
