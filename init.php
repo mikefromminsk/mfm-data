@@ -4,6 +4,14 @@ include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-db/utils.php";
 
 onlyInDebug();
 
+$address = get_required(wallet_admin_address);
+$password = get_required(wallet_admin_password);
+
+requestEquals("/mfm-token/init.php", [
+    wallet_admin_address => $address,
+    wallet_admin_password => $password
+]);
+
 query("DROP TABLE IF EXISTS `data`;");
 query("CREATE TABLE IF NOT EXISTS `data` (
   `data_id` int(11) NOT NULL AUTO_INCREMENT,
