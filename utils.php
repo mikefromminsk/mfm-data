@@ -234,7 +234,7 @@ function commit($response = null)
     $gas_rows = 0;
     $gas_rows += count($GLOBALS[new_data]);
     $gas_rows += count($GLOBALS[new_history]);
-    $gas_spent = 0.001 * $gas_rows;
+    $gas_spent = 0.01 * $gas_rows;
 
     if ($gas_rows != 0) {
         tokenSend(
