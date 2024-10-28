@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-data/utils.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-data/utils.php";
 
 $path = get_required(path);
 $search_text = get_string(search_text, "");

@@ -1,5 +1,5 @@
 <?php
-include_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-token/utils.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-token/utils.php";
 
 const DATA_OBJECT = -1;
 const DATA_NULL = 0;
