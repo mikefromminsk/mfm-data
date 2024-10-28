@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-data/utils.php";
+require_once $_SERVER[DOCUMENT_ROOT] . "/mfm-data/utils.php";
 
 $path = get_required(path);
 $limit = get_int_required(limit, 100);

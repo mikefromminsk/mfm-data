@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-token/utils.php";
+require_once $_SERVER[DOCUMENT_ROOT] . "/mfm-token/utils.php";
 
 const DATA_OBJECT = -1;
 const DATA_NULL = 0;
@@ -205,7 +205,7 @@ function commitData()
             while ($id > 0) {
                 $id -= BLOCK_SIZE;
                 $block_bank = select("select * from history where `id` >= $id limit 0," . BLOCK_SIZE);
-                $dirpath = $_SERVER["DOCUMENT_ROOT"] . "/../item_bank";
+                $dirpath = $_SERVER[DOCUMENT_ROOT] . "/../item_bank";
                 $filepath = "$dirpath/$id.json";
                 if (!file_exists($filepath)) {
                     mkdir($dirpath);
