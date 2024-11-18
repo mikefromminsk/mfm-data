@@ -288,8 +288,8 @@ function dataObject(array $path, $limit, &$count = 0)
 
 function broadcast($channel, $data)
 {
-/*    http_post(":8002/test", [
+    http_post(":8002/test", [
         channel => $channel,
         data => $data,
-    ]);*/
+    ]);
 }
