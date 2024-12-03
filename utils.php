@@ -190,8 +190,30 @@ function dataSearch($path, $search_text, $page = 1, $size = PAGE_SIZE_DEFAULT)
         . " limit $offset, $size");
 }
 
+function spendGasOf($gas_address, $gas_password)
+{
+    $gas_domain = get_required(gas_domain);
+    $GLOBALS[gas_pass] = tokenPass($gas_domain, $gas_address, $gas_password);
+}
+
 function commitData()
 {
+    $gas_rows = 0;
+    $gas_rows += count($GLOBALS[new_data]);
+    $gas_rows += count($GLOBALS[new_history]);
+    $gas_spent = 0.01 * $gas_rows;
+
+    if ($gas_rows != 0) {
+        tokenSend(
+            $GLOBALS[gas_domain],
+            get_required(gas_address),
+            admin,
+            $gas_spent,
+            get_required(gas_pass),
+        );
+        broadcast(data, $GLOBALS[new_history]);
+    }
+
     foreach ($GLOBALS[new_data] as $data_id => $data) {
         insertRow(data, $data);
     }
@@ -216,40 +238,6 @@ function commitData()
             }
         }*/
     }
-    broadcast(data, $GLOBALS[new_history]);
-}
-
-
-function spendGasOf($gas_address, $gas_password)
-{
-    $gas_domain = get_required(gas_domain);
-    $GLOBALS[gas_pass] = tokenPass($gas_domain, $gas_address, $gas_password);
-}
-
-function commit($response = null)
-{
-    if ($response == null)
-        $response = [];
-    $response[success] = true;
-    $gas_rows = 0;
-    $gas_rows += count($GLOBALS[new_data]);
-    $gas_rows += count($GLOBALS[new_history]);
-    $gas_spent = 0.01 * $gas_rows;
-
-    if ($gas_rows != 0) {
-        tokenSend(
-            $GLOBALS[gas_domain],
-            get_required(gas_address),
-            admin,
-            $gas_spent,
-            get_required(gas_pass),
-        );
-        commitData();
-        $response[gas_spend] = $gas_spent;
-    }
-    commitAccounts();
-    commitTrans();
-    die(json_encode($response, JSON_PRETTY_PRINT));
 }
 
 function dataObject(array $path, $limit, &$count = 0)
