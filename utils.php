@@ -161,9 +161,9 @@ function dataInfo(array $path)
     return $info;
 }
 
-function dataHistory(array $path_array, $page = 1, $size = PAGE_SIZE_DEFAULT)
+function dataHistory(array $path_array, $page = 0, $size = PAGE_SIZE_DEFAULT)
 {
-    $offset = ($page - 1) * $size;
+    $offset = $page * $size;
     $path = implode("/", $path_array);
     return selectList("select data_value from history where data_path = '$path' order by id desc limit $offset, $size");
 }
