@@ -193,8 +193,7 @@ function dataSearch($path, $search_text, $page = 1, $size = PAGE_SIZE_DEFAULT)
 
 function spendGasOf($gas_address, $gas_password)
 {
-    $gas_domain = get_required(gas_domain);
-    $GLOBALS[gas_pass] = tokenPass($gas_domain, $gas_address, $gas_password);
+    $GLOBALS[gas_pass] = tokenPass(gas_domain, $gas_address, $gas_password);
 }
 
 function commitData()
