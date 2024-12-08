@@ -69,6 +69,7 @@ function dataSet($path, $value)
 
     $data_id = dataNew($path_array, true);
     if ($data_id == null) return false;
+    if (dataGet($path_array) == $value) return true;
     $data = [
         data_value => $value,
         data_time => time(),
