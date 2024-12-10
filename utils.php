@@ -205,7 +205,7 @@ function commitData()
 
     if ($gas_rows != 0) {
         tokenSend(
-            $GLOBALS[gas_domain],
+            gas_domain,
             get_required(gas_address),
             admin,
             $gas_spent,
